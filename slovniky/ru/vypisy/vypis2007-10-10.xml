@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Test xmlns="http://srubarovi.cz/teacher" name="vypis 2007-10-10" langcode="ru">
+           <Query>
+                      <Question>uklidit</Question>
+                      <Answer value="убрать" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>uklízet</Question>
+                      <Answer value="убирать" accents="4"></Answer>
+           </Query>
+           <Query>
+                      <Question>směřovat (k )</Question>
+                      <Answer value="стремиться (к)" accents="5"></Answer>
+           </Query>
+           <Query>
+                      <Question>zbohatnout</Question>
+                      <Answer value="разбогатеть" accents="8"></Answer>
+           </Query>
+           <Query>
+                      <Question>pánev</Question>
+                      <Answer value="таз"></Answer>
+           </Query>
+           <Query>
+                      <Question>pevný</Question>
+                      <Answer value="прочный" accents="2"></Answer>
+           </Query>
+           <Query>
+                      <Question>tarbík</Question>
+                      <Answer value="тушканчик" accents="4"></Answer>
+           </Query>
+           <Query>
+                      <Question>šetřit, chránit</Question>
+                      <Answer value="беречь" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>zhasnout</Question>
+                      <Answer value="потушить" accents="5"></Answer>
+           </Query>
+           <Query>
+                      <Question>světlo</Question>
+                      <Answer value="свет" accents="2"></Answer>
+           </Query>
+           <Query>
+                      <Question>nadávat, hubovat</Question>
+                      <Answer value="ругать"></Answer>
+           </Query>
+           <Query>
+                      <Question>hlasitě</Question>
+                      <Answer value="громко" accents="2"></Answer>
+           </Query>
+           <Query>
+                      <Question>hlasitěji</Question>
+                      <Answer value="громче" accents="2"></Answer>
+           </Query>
+           <Query>
+                      <Question>dílo</Question>
+                      <Answer value="произведение" accents="8"></Answer>
+           </Query>
+           <Query>
+                      <Question>vliv</Question>
+                      <Answer value="влияние" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>rozvoj</Question>
+                      <Answer value="развитие" accents="4"></Answer>
+           </Query>
+           <Query>
+                      <Question>následující</Question>
+                      <Answer value="последующий" accents="4"></Answer>
+           </Query>
+           <Query>
+                      <Question>zasahovat; ohromovat</Question>
+                      <Answer value="поражать" accents="5"></Answer>
+           </Query>
+           <Query>
+                      <Question>smát se</Question>
+                      <Answer value="смеяться"></Answer>
+           </Query>
+           <Query>
+                      <Question>nedostatek</Question>
+                      <Answer value="порок" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>společnost</Question>
+                      <Answer value="общество" accents="0"></Answer>
+           </Query>
+           <Query>
+                      <Question>mistrovství</Question>
+                      <Answer value="мастерство" accents="9"></Answer>
+           </Query>
+           <Query>
+                      <Question>shrnutí</Question>
+                      <Answer value="обобщение"></Answer>
+           </Query>
+           <Query>
+                      <Question>být, objevit se, jevit se (archaicky)</Question>
+                      <Answer value="являться" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>oběť</Question>
+                      <Answer value="жертва" accents="1"></Answer>
+           </Query>
+           <Query>
+                      <Question>vztah</Question>
+                      <Answer value="отношение" accents="5"></Answer>
+           </Query>
+           <Query>
+                      <Question>hrdina</Question>
+                      <Answer value="герой" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>zdánlivý</Question>
+                      <Answer value="мнимый" accents="2"></Answer>
+           </Query>
+           <Query>
+                      <Question>podvodník</Question>
+                      <Answer value="мошенник" accents="3"></Answer>
+           </Query>
+           <Query>
+                      <Question>vhodný</Question>
+                      <Answer value="удобный"></Answer>
+           </Query>
+</Test>

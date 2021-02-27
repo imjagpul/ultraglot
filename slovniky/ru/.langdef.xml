@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<language xmlns='http://srubarovi.cz/teacher'
+  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+  xsi:schemaLocation='http://srubarovi.cz/teacher file:/C:/JavaProjekty/Teacher/xml/language.xsd'
+  name="Russian (русский)"
+  langcode="ru">
+
+  <accentDefinition legalCharacters="аеёиыоуяюАЕЁИЫОУЯЮ" />
+  
+  <wordTypes>
+    <subName>Часть речи</subName>
+    <!--
+    Русские части речи:
+      1. Самостоятельные части речи
+        * существительное
+        * прилагательное
+        * числительное
+        * местоимение
+        * глагол
+        * наречие
+      2. Служебные части речи
+        * предлог
+        * союз
+        * частица
+      3. Междометие
+        * междометие
+    -->    
+    <wordType name="существительное" fastAccess="1">
+      <subName>Род</subName>
+      <!--
+      В русском языке выделяют следующие виды грамматического рода:
+        * мужской
+        * женский
+        * средний
+        * общий (двоякая модель согласования: бедный сирота/бедная сирота)
+        * обоюдный (одна модель согласования: он/она настоящая собака)
+      -->
+      <wordType name="мужской" fastAccess="1"></wordType>
+      <wordType name="женский" fastAccess="2"></wordType>
+      <wordType name="средний" fastAccess="3"></wordType>
+      
+      <wordType name="общий" fastAccess="4"></wordType>
+      <wordType name="обоюдный" fastAccess="5"></wordType>
+    </wordType>
+    <wordType name="прилагательное" fastAccess="2"></wordType>
+    <wordType name="местоимение" fastAccess="3"></wordType>
+    <wordType name="числительное" fastAccess="4"></wordType>
+    <wordType name="глагол" fastAccess="5"></wordType>
+    <wordType name="наречие" fastAccess="6"></wordType>
+    <wordType name="предлог" fastAccess="7"></wordType>
+    <wordType name="союз" fastAccess="8"></wordType>
+    <wordType name="частица" fastAccess="9"></wordType>
+    <wordType name="междометие" fastAccess="0"></wordType>
+  </wordTypes>
+</language>

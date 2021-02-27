@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://srubarovi.cz/teacher" targetNamespace="http://srubarovi.cz/teacher" xmlns="http://srubarovi.cz/teacher" elementFormDefault="qualified">
+  <!-- 
+      XML Schema Primer: http://www.w3.org/TR/xmlschema-0/
+      Structures recommendation: http://www.w3.org/TR/xmlschema-1/
+      Datatypes recommendation: http://www.w3.org/TR/xmlschema-2/
+  -->
+  <!--
+  TODO:
+  accents
+  make unique names restriction
+  restrict language codes
+  -->
+  <xsd:include schemaLocation="shared.xsd" />
+  <xsd:element name="language">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="wordTypes" type="ns:wordTypes" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="accentDefinition" type="ns:accentDefiniton" minOccurs="0" maxOccurs="1" />
+      </xsd:all>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+      <xsd:attribute name="langcode" type="xsd:string" use="optional" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="wordType">
+    <xsd:sequence>
+      <xsd:element name="subName" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="wordType" type="ns:wordType" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="fastAccess" type="ns:fastAccess" />
+    <xsd:attribute name="name" type="xsd:string" />
+  </xsd:complexType>
+  <xsd:complexType name="wordTypes">
+    <xsd:sequence>
+      <xsd:element name="subName" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="wordType" type="ns:wordType" minOccurs="1" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="accentDefiniton">
+    <xsd:sequence>
+    </xsd:sequence>
+    <xsd:attribute name="legalCharacters" type="xsd:string" use="optional" />
+    <xsd:attribute name="showAs" type="xsd:string" use="optional" />
+  </xsd:complexType>
+</xsd:schema>

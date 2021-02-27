@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Test xmlns="http://srubarovi.cz/teacher" name="Masculine Singular Nouns">
+           <Query>
+                      <Question>David</Question>
+                      <Answer value="דָּוִד"></Answer>
+           </Query>
+           <Query>
+                      <Question>Moses</Question>
+                      <Answer value="מֹשֶׁה"></Answer>
+           </Query>
+           <Query>
+                      <Question>king</Question>
+                      <Answer value="מֶלֶךְ" accents="1 0"></Answer>
+           </Query>
+           <Query>
+                      <Question>(he) ruled, reigned</Question>
+                      <Answer value="מָלַךְ"></Answer>
+           </Query>
+           <Query>
+                      <Question>house</Question>
+                      <Answer value=" בַּיִת"></Answer>
+           </Query>
+           <Query>
+                      <Question>word, thing</Question>
+                      <Answer value="דָּבָר"></Answer>
+           </Query>
+           <Query>
+                      <Question>father</Question>
+                      <Answer value="אָב"></Answer>
+           </Query>
+           <Query>
+                      <Question>man</Question>
+                      <Answer value="אִישׁ"></Answer>
+           </Query>
+           <Query>
+                      <Question>young man</Question>
+                      <Answer value="נַעַר"></Answer>
+           </Query>
+           <Query>
+                      <Question>(he) heard, obeyed</Question>
+                      <Answer value="שָׁמַע"></Answer>
+           </Query>
+           <Query>
+                      <Question>(he) guarded, kept</Question>
+                      <Answer value="שָׁמַר"></Answer>
+           </Query>
+           <Query>
+                      <Question>(he) remembered</Question>
+                      <Answer value="זָכַר"></Answer>
+           </Query>
+</Test>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://srubarovi.cz/teacher" targetNamespace="http://srubarovi.cz/teacher" xmlns="http://srubarovi.cz/teacher" elementFormDefault="qualified">
+  <xsd:simpleType name="fastAccess">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:maxInclusive value="9" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

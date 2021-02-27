@@ -1,0 +1,709 @@
+/*
+ * QuestionFrame.java
+ *
+ * Created on 25. duben 2006, 13:38
+ */
+package cz.srubarovi.teacher;
+
+import cz.srubarovi.teacher.converters.Converter;
+import cz.srubarovi.teacher.core.Answer;
+import cz.srubarovi.teacher.core.NotifiableIterator;
+import cz.srubarovi.teacher.core.Question;
+import cz.srubarovi.teacher.core.Test;
+import cz.srubarovi.teacher.core.TestCut;
+import cz.srubarovi.teacher.core.TestShuffle;
+import cz.srubarovi.teacher.resources.Resources;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
+
+/**
+ *
+ * @author  Imjagpul
+ */
+public class QuestionFrame extends javax.swing.JFrame {
+
+    /**
+     * Creates new form QuestionFrame
+     */
+    public QuestionFrame() {
+        initComponents();
+        jLabelTimeout.setVisible(false);
+
+        for (final Converter conv : Converter.CONVERTERS) {
+            JRadioButtonMenuItem item = new JRadioButtonMenuItem(conv.getName());
+            item.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    QuestionFrame.this.setConverter(conv);
+                }
+            });
+
+            buttonGroupConverters.add(item);
+            jMenuConverters.add(item);
+        }
+
+
+
+        choiceForm = new WordTypeChoiceDialog(this);
+        choiceForm.setFont(Settings.INSTANCE.getFont());
+        answerField.setFont(Settings.INSTANCE.getFont());
+
+        //create actions
+        actionMarkAccent = new ActionMarkAccent();
+        actionNext = new ActionNext();
+
+        //map keys
+        answerField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), actionNext);
+    }
+
+    public enum Status {
+
+        HELP_USED,
+        WRONG_ANSWER,
+        WRONG_CHOICE,
+        TIME_OUT,
+        WRONG_ACCENT
+    }
+    private Test currentTest = null;
+    private Iterator<? extends Question> iterator = null;
+    private ArrayList<EnumSet<Status>> currentTestStatuses;
+    private EnumSet<Status> currentStatus = EnumSet.noneOf(Status.class);
+    private Converter converter;
+    private WordTypeChoiceDialog choiceForm;
+    private int wordcount;
+    private boolean testWordTypes = false;
+    //actions
+    private Action actionMarkAccent;
+    private Action actionNext;
+    private long startAt;
+    private boolean testAccents = false;
+
+    /**
+     * Resets some fields to default values.
+     */
+    private void initFields() {
+        answerField.setBackground(Color.WHITE);
+        jLabelTimeout.setVisible(false);
+        jLabelWrongAccent.setVisible(false);
+        currentStatus = EnumSet.noneOf(Status.class);
+        jLabelStatus.setVisible(jCheckBoxMenuItemDisplayStatus.isSelected());
+        jLabelStatus.setText("");
+        answerFieldSub.clearAccents();
+        answerFieldSub.setDiffActive(false);
+
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
+    }
+
+    public void startTest(Test test) {
+        setTitle(test.getName());
+        this.currentTest = test;
+        wordcount = test.count();
+        startAt = System.currentTimeMillis();
+
+        iterator = test.iterator();
+        currentTestStatuses = new ArrayList<EnumSet<Status>>();
+        initFields();
+
+        if (iterator.hasNext()) {
+            setCurrentQuestion(iterator.next());
+            setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Empty test.");
+        }
+    }
+    private Question currentQuestion = null;
+
+    private void setCurrentQuestion(Question question) {
+        this.currentQuestion = question;
+        jLabelQuestion.setText("<html>" + this.currentQuestion.getQuestion());
+        answerField.setText("");
+
+        if (iterator instanceof NotifiableIterator) {
+            NotifiableIterator notifiableIterator = (NotifiableIterator) iterator;
+            jLabelStatus.setText(notifiableIterator.getStatusText());
+        }
+
+        //copy to clipboard if desired
+        if (Settings.INSTANCE.getAutoCopyToClipboard()) {
+            TextTransfer.set(this.currentQuestion.getQuestion());
+        }
+    }
+
+    private void applyFont() {
+        Font font = Settings.INSTANCE.getFont();
+        answerField.setFont(font);
+        jLabelQuestion.setFont(font);
+        choiceForm.setFont(font);
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroupConverters = new javax.swing.ButtonGroup();
+        jLabelQuestion = new javax.swing.JLabel();
+        jButtonNext = new javax.swing.JButton();
+        jButtonHelp = new javax.swing.JButton();
+        jLabelTimeout = new javax.swing.JLabel();
+        answerField = answerField=answerFieldSub=new AnswerField();
+        jLabelWrongAccent = new javax.swing.JLabel();
+        jButtonMarkAccent = new javax.swing.JButton();
+        jLabelStatus = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuOptions = new javax.swing.JMenu();
+        jMenuItemSkip = new javax.swing.JMenuItem();
+        jMenuItemEdit = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JSeparator();
+        jMenuItemFont = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
+        jCheckBoxMenuItemAutoCopy = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItemDisplayStatus = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItemDiff = new javax.swing.JCheckBoxMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
+        jMenuItemSettings = new javax.swing.JMenuItem();
+        jMenuConverters = new javax.swing.JMenu();
+        jRadioButtonMenuItemNone = new javax.swing.JRadioButtonMenuItem();
+
+        setIconImage(Resources.APP);
+
+        jLabelQuestion.setFont(Settings.INSTANCE.getFont());
+        jLabelQuestion.setText("jLabel1");
+
+        jButtonNext.setAction(actionNext);
+        jButtonNext.setMnemonic('n');
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("cz/srubarovi/teacher/properties"); // NOI18N
+        jButtonNext.setText(bundle.getString("Next")); // NOI18N
+
+        jButtonHelp.setMnemonic('h');
+        jButtonHelp.setText(bundle.getString("Help")); // NOI18N
+        jButtonHelp.setDefaultCapable(false);
+        jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHelpActionPerformed(evt);
+            }
+        });
+
+        jLabelTimeout.setText("Time out!");
+        jLabelTimeout.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(255, 51, 51)));
+
+        answerField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                answerFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                answerFieldKeyTyped(evt);
+            }
+        });
+
+        jLabelWrongAccent.setText("Accent");
+        jLabelWrongAccent.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 255, 204)));
+
+        jButtonMarkAccent.setAction(actionMarkAccent);
+        jButtonMarkAccent.setMnemonic('a');
+        jButtonMarkAccent.setText("Mark accent");
+
+        jLabelStatus.setFont(new java.awt.Font("Tahoma", 0, 22));
+        jLabelStatus.setText("status");
+
+        jMenuOptions.setMnemonic('o');
+        jMenuOptions.setText("Options");
+
+        jMenuItemSkip.setMnemonic('s');
+        jMenuItemSkip.setText("Skip");
+        jMenuItemSkip.setToolTipText("Bìhem probíhajícího testu se už nebude ptát na tuto otázku.");
+        jMenuItemSkip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSkipActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jMenuItemSkip);
+
+        jMenuItemEdit.setMnemonic('e');
+        jMenuItemEdit.setText("Edit");
+        jMenuItemEdit.setToolTipText("Zmìní tuto otázku (zatím se neukládá do souboru).");
+        jMenuItemEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEditActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jMenuItemEdit);
+        jMenuOptions.add(jSeparator1);
+
+        jMenuItemFont.setMnemonic('f');
+        jMenuItemFont.setText("Change Font");
+        jMenuItemFont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFontActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jMenuItemFont);
+        jMenuOptions.add(jSeparator2);
+
+        jCheckBoxMenuItemAutoCopy.setSelected(Settings.INSTANCE.getAutoCopyToClipboard());
+        jCheckBoxMenuItemAutoCopy.setText("Auto copy to clipboard");
+        jCheckBoxMenuItemAutoCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItemAutoCopyActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jCheckBoxMenuItemAutoCopy);
+
+        jCheckBoxMenuItemDisplayStatus.setSelected(true);
+        jCheckBoxMenuItemDisplayStatus.setText("Display status");
+        jCheckBoxMenuItemDisplayStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItemDisplayStatusActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jCheckBoxMenuItemDisplayStatus);
+
+        jCheckBoxMenuItemDiff.setSelected(true);
+        jCheckBoxMenuItemDiff.setText("Diff on help");
+        jCheckBoxMenuItemDiff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItemDiffActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jCheckBoxMenuItemDiff);
+        jMenuOptions.add(jSeparator3);
+
+        jMenuItemSettings.setText("Settings");
+        jMenuItemSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSettingsActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jMenuItemSettings);
+
+        jMenuBar1.add(jMenuOptions);
+
+        jMenuConverters.setMnemonic('c');
+        jMenuConverters.setText("Converters");
+
+        buttonGroupConverters.add(jRadioButtonMenuItemNone);
+        jRadioButtonMenuItemNone.setMnemonic('n');
+        jRadioButtonMenuItemNone.setSelected(true);
+        jRadioButtonMenuItemNone.setText("(none)");
+        jRadioButtonMenuItemNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItemNoneActionPerformed(evt);
+            }
+        });
+        jMenuConverters.add(jRadioButtonMenuItemNone);
+
+        jMenuBar1.add(jMenuConverters);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelQuestion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonMarkAccent)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonHelp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonNext))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                        .addComponent(jLabelWrongAccent)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTimeout))
+                    .addComponent(answerField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelQuestion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTimeout)
+                    .addComponent(jLabelWrongAccent)
+                    .addComponent(jLabelStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonNext)
+                    .addComponent(jButtonHelp)
+                    .addComponent(jButtonMarkAccent))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jCheckBoxMenuItemDisplayStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemDisplayStatusActionPerformed
+        jLabelStatus.setVisible(jCheckBoxMenuItemDisplayStatus.isSelected());
+    }//GEN-LAST:event_jCheckBoxMenuItemDisplayStatusActionPerformed
+
+    private void jCheckBoxMenuItemAutoCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemAutoCopyActionPerformed
+        Settings.INSTANCE.setAutoCopyToClipboard(jCheckBoxMenuItemAutoCopy.isSelected());
+    }//GEN-LAST:event_jCheckBoxMenuItemAutoCopyActionPerformed
+
+    private void answerFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerFieldKeyReleased
+        handleKey(evt);
+    }//GEN-LAST:event_answerFieldKeyReleased
+
+    private void answerFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerFieldKeyTyped
+        handleKey(evt);
+    }//GEN-LAST:event_answerFieldKeyTyped
+
+    private void jMenuItemSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSettingsActionPerformed
+        SettingsDialog settingsDialog = new SettingsDialog(this);
+        settingsDialog.setVisible(true);
+
+        answerField.setComponentOrientation(Settings.INSTANCE.isRTLAnswer() ? ComponentOrientation.RIGHT_TO_LEFT : ComponentOrientation.LEFT_TO_RIGHT);
+
+        jLabelQuestion.setComponentOrientation(Settings.INSTANCE.isRTLQuestion() ? ComponentOrientation.RIGHT_TO_LEFT : ComponentOrientation.LEFT_TO_RIGHT);
+
+        applyFont();
+        repaint();
+    }//GEN-LAST:event_jMenuItemSettingsActionPerformed
+
+    private void jMenuItemFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFontActionPerformed
+        FontChooser fc = new FontChooser(this, answerField.getText() + "\n" + jLabelQuestion.getText(), Settings.INSTANCE.getFont());
+        fc.setVisible(true);
+        if (fc.getNewFont() != null) {
+            Settings.INSTANCE.setFont(fc.getNewFont());
+            applyFont();
+        }
+    }//GEN-LAST:event_jMenuItemFontActionPerformed
+
+    private void jRadioButtonMenuItemNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemNoneActionPerformed
+        setConverter(null);
+    }//GEN-LAST:event_jRadioButtonMenuItemNoneActionPerformed
+    private QuestionEditor qe;
+    private void jMenuItemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditActionPerformed
+        if (qe == null) {
+            qe = new QuestionEditor();
+        }
+        qe.setQuestion(currentQuestion);
+        qe.setVisible(true);
+
+        setCurrentQuestion(currentQuestion);
+    }//GEN-LAST:event_jMenuItemEditActionPerformed
+
+    private void jMenuItemSkipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSkipActionPerformed
+        currentQuestion.setSkipDesired(true);
+        nextQuestion();
+    }//GEN-LAST:event_jMenuItemSkipActionPerformed
+    private Pattern NEWLINE = Pattern.compile("\r|\n");
+
+    private void handleKey(java.awt.event.KeyEvent evt) {
+
+        //remove newlines
+        String oldtext = answerField.getText();
+        String newtext = NEWLINE.matcher(oldtext).replaceAll("");
+        if (!newtext.equals(oldtext)) {
+            int start = answerField.getSelectionStart();
+            int end = answerField.getSelectionEnd();
+
+            answerField.setText(newtext);
+
+            answerField.setSelectionStart(start);
+            answerField.setSelectionEnd(end);
+        }
+
+        if (converter != null) {
+            oldtext = answerField.getText();
+            newtext = getConverter().convert(oldtext);
+            if (!oldtext.equals(newtext)) {
+                int start = answerField.getSelectionStart();
+                int end = answerField.getSelectionEnd();
+
+                answerField.setText(newtext);
+
+                answerField.setSelectionStart(start);
+                answerField.setSelectionEnd(end);
+            }
+        }
+
+        answerFieldSub.resetAttributes(currentQuestion, jCheckBoxMenuItemDiff.isSelected());
+    }
+
+    private Object formatAnswer() {
+        StringBuilder sb = new StringBuilder("<html>");
+
+        for (Answer answer : currentQuestion) {
+            StringBuilder ans = new StringBuilder(answer.getAnswerRaw());
+
+            int[] accents = answer.getAccents();
+            if (accents != null) {
+                for (int i = accents.length - 1; i >= 0; i--) {
+                    char c = ans.charAt(accents[i]);
+                    ans.replace(accents[i], accents[i] + 1, "<b>" + c + "</b>");
+                }
+            }
+            sb.append(ans.toString());
+            sb.append("<br>");
+        }
+
+        JLabel label = new JLabel(sb.toString());
+        label.setFont(answerField.getFont());
+        return label;
+    }
+
+    private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
+        if (currentQuestion == null) {
+            return;
+        }
+        currentStatus.add(Status.HELP_USED);
+
+//        JOptionPane.showMessageDialog(
+//                this,
+//                formatAnswer(),
+//                ResourceBundle.getBundle("cz/srubarovi/teacher/properties").getString("helpdialog_title"),
+//                JOptionPane.PLAIN_MESSAGE);
+
+        JOptionPane pane = new JOptionPane(formatAnswer(), JOptionPane.PLAIN_MESSAGE);
+        pane.setComponentOrientation(Settings.INSTANCE.isRTLAnswer() ? ComponentOrientation.RIGHT_TO_LEFT : ComponentOrientation.LEFT_TO_RIGHT);
+
+        pane.createDialog(this, ResourceBundle.getBundle("cz/srubarovi/teacher/properties").getString("helpdialog_title")).setVisible(true);
+
+        if (jCheckBoxMenuItemDiff.isSelected()) {
+            answerFieldSub.setDiffActive(true);
+            answerFieldSub.resetAttributes(currentQuestion, jCheckBoxMenuItemDiff.isSelected());
+        }
+
+        //focus the answer textfield
+        if (!answerField.hasFocus()) {
+            answerField.requestFocus();
+        }
+    }//GEN-LAST:event_jButtonHelpActionPerformed
+
+private void jCheckBoxMenuItemDiffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemDiffActionPerformed
+    answerFieldSub.resetAttributes(currentQuestion, jCheckBoxMenuItemDiff.isSelected());
+}//GEN-LAST:event_jCheckBoxMenuItemDiffActionPerformed
+
+    private void finish() {
+        int wrong = 0;
+        int withhelp = 0;
+
+        long took = System.currentTimeMillis() - startAt;
+
+        for (EnumSet<Status> stat : currentTestStatuses) {
+            if (stat.contains(Status.WRONG_ANSWER)) {
+                wrong++;
+            } else if (stat.contains(Status.HELP_USED)) {
+                withhelp++;
+            }
+        }
+
+
+        String msg = String.format("<html>Test done, %d wrong, %d with help, %d total (word count is %d). " +
+                "<br>Test time: %6$02d:%5$tM:%5$tS",
+                wrong, withhelp, currentTestStatuses.size(), wordcount, took, took / (60 * 60 * 1000));
+        //hour behaves weird in calendar (starts with 01 instead of 00), so it's calculated here
+
+//        JOptionPane.showMessageDialog(this, msg, "Result", JOptionPane.PLAIN_MESSAGE, );
+        final String okOption = "Finish";
+        Object[] options = new String[]{"Repeat test", "Problematic questions", okOption};
+        int choice = JOptionPane.showOptionDialog(this, msg, "Result", 0, JOptionPane.PLAIN_MESSAGE, null, options, okOption);
+        switch (choice) {
+            case 0:
+                //repeat test
+                startTest(new TestShuffle(currentTest));
+                break;
+            case 1:
+                //problematic only
+                List<Integer> indicies = new ArrayList<Integer>(wrong + withhelp);
+                int index = 0;
+                for (EnumSet<Status> status : currentTestStatuses) {
+                    index++;
+                    if (!status.isEmpty()) {
+                        indicies.add(index);
+                    }
+                }
+
+                startTest(new TestShuffle(new TestCut(currentTest, indicies)));
+                break;
+            case 2:
+//                this.setVisible(false);
+                this.dispose();
+                break;
+        }
+    }
+    private Timer timer = null;
+
+    private void nextQuestion() {
+        if (iterator instanceof NotifiableIterator) {
+            NotifiableIterator smart = (NotifiableIterator) iterator;
+            smart.notify(currentStatus);
+        }
+
+        currentTestStatuses.add(currentStatus);
+
+        initFields();
+
+        while (iterator.hasNext()) {
+            Question question = iterator.next();
+
+            //skip questions to be skipped
+            if (question.isSkipDesired()) {
+                continue;
+            }
+            if (question.isEmptyQuestion()) {
+                continue;
+            }
+            setCurrentQuestion(question);
+
+            if (Settings.INSTANCE.isTimerEnabled()) {
+                int time = Settings.INSTANCE.getTimer();
+                time += question.getAnswer().length() * Settings.INSTANCE.getTimerBonusPerLetter();
+                //TODO use longest answer, not first one
+
+                timer = new Timer(time, new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                        jLabelTimeout.setVisible(true);
+                        currentStatus.add(Status.TIME_OUT);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            return;
+        }
+
+        //end of test
+        finish();
+    }
+
+    private void indicateWrongAnswer() {
+        answerField.setBackground(Color.RED);
+        currentStatus.add(Status.WRONG_ANSWER);
+    }
+
+    private void indicateWrongAccent() {
+        jLabelWrongAccent.setVisible(true);
+        currentStatus.add(Status.WRONG_ACCENT);
+    }
+
+    void choiceFinished(boolean correctly) {
+        if (!correctly) {
+            currentStatus.add(Status.WRONG_CHOICE);
+        }
+        nextQuestion();
+    }
+
+    public Converter getConverter() {
+        return converter;
+    }
+
+    public void setConverter(Converter converter) {
+        this.converter = converter;
+    }
+
+    public void setTestAccents(boolean testAccents) {
+        this.testAccents = testAccents;
+        jButtonMarkAccent.setVisible(testAccents);
+
+        if (testAccents) {
+            answerField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0), actionMarkAccent);
+        }
+    }
+
+    public void setTestWordTypes(boolean testWordTypes) {
+        this.testWordTypes = testWordTypes;
+    }
+    private AnswerField answerFieldSub;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane answerField;
+    private javax.swing.ButtonGroup buttonGroupConverters;
+    private javax.swing.JButton jButtonHelp;
+    private javax.swing.JButton jButtonMarkAccent;
+    private javax.swing.JButton jButtonNext;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemAutoCopy;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemDiff;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemDisplayStatus;
+    private javax.swing.JLabel jLabelQuestion;
+    private javax.swing.JLabel jLabelStatus;
+    private javax.swing.JLabel jLabelTimeout;
+    private javax.swing.JLabel jLabelWrongAccent;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuConverters;
+    private javax.swing.JMenuItem jMenuItemEdit;
+    private javax.swing.JMenuItem jMenuItemFont;
+    private javax.swing.JMenuItem jMenuItemSettings;
+    private javax.swing.JMenuItem jMenuItemSkip;
+    private javax.swing.JMenu jMenuOptions;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemNone;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    // End of variables declaration//GEN-END:variables
+
+    private class ActionMarkAccent extends AbstractAction {
+
+        public void actionPerformed(ActionEvent e) {
+            answerFieldSub.markAccent(currentQuestion, jCheckBoxMenuItemDiff.isSelected());
+        }
+    }
+
+    private class ActionNext extends AbstractAction {
+
+        public void actionPerformed(ActionEvent e) {
+            if (currentQuestion == null) {
+                return;
+            }
+            if (currentQuestion.isCorrect(answerField.getText())) {
+
+                Answer enteredAnswer = currentQuestion.getAnswerFor(answerField.getText());
+
+                //check accents
+                if (testAccents && enteredAnswer.getAccents() != null) {
+
+                    boolean correct = answerFieldSub.checkAccents(enteredAnswer);
+                    if (!correct) {
+                        indicateWrongAccent();
+                        return;
+                    }
+                }
+
+                //run choice dialog for wordtypes
+                if (testWordTypes && enteredAnswer.getWordTypes() != null) {
+                    boolean correct = choiceForm.runChoice(currentQuestion.getLangDef().getWordTypes(), enteredAnswer.getWordTypes());
+                    currentStatus.add(Status.WRONG_CHOICE);
+                }
+
+                nextQuestion();
+            } else {
+                indicateWrongAnswer();
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+#Check answer and next question.
+Next=Next
+Help=Help
+
+#Runs the selected text.
+runtest=Run test
+
+#test menu
+menuedit_test=Test
+menuedit_new=New test
+menuedit_save=Save
+menuedit_saveas=Save as
+menuedit_load=Load
+menuedit_quit=Quit
+
+
+testname=Name
+
+#Remove item in context menu of the table.
+editor_removetest=Remove selected
+
+#Add item in context menu of the table.
+editor_add=Add
+
+#The title of the Help dialog.
+helpdialog_title=Help
+
+#------------------------------- Test editor -----------------------------------
+#columns in the test editor table
+testeditor_column_question=Question
+testeditor_column_answer_raw=Answer Raw
+testeditor_column_answer_test=Answer Test
+
+#error dialogs
+testeditor_File_writing_error=File writing failed.
+testeditor_File_reading_error=File reading error.
+testeditor_Unknown_or_invalid_file_format=Unknown or invalid file format.
+
+#dialog used while validating
+testeditor_joinoffer_part1=Equal questions (
+testeditor_joinoffer_part2=), join?\n
+testeditor_joinoffer_join=Join
+testeditor_joinoffer_dontjoin=Don't join
+testeditor_joinoffer_joinalways=Join always
+testeditor_joinoffer_neverjoin=Never join
+testeditor_joinoffer_title=Duplicate questions
+
+#dialog shown while closing test with unsaved changes
+testeditor_confirmclosedialog_title=Test modified
+testeditor_confirmclosedialog_content=Test modified, save?
+
+testeditor_save_testv1format=TESTv1 file format (*)
+testeditor_save_xmlformat=XML file format (*.xml)
+
+#------------------------------- Settings dialog -------------------------------
+settingsdialog_changefontbutton=Change font

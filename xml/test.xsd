@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://srubarovi.cz/teacher" targetNamespace="http://srubarovi.cz/teacher" xmlns="http://srubarovi.cz/teacher" elementFormDefault="qualified">
+  <xsd:include schemaLocation="shared.xsd" />
+  <xsd:element name="Test">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Query" type="ns:query" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+      <xsd:attribute name="langcode" type="xsd:string" use="optional" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="query">
+    <xsd:sequence>
+      <xsd:element name="Question" type="ns:question" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="Answer" type="ns:answer" minOccurs="1" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="question">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:complexType name="answer">
+    <xsd:attribute name="value" type="xsd:string" use="required" />
+    <xsd:attribute name="wordType" type="fastAccessList" use="optional" />
+    <xsd:attribute name="accents" type="ns:accentList" use="optional" />
+  </xsd:complexType>
+  <xsd:simpleType name="fastAccessList">
+    <xsd:list itemType="ns:fastAccess" />
+  </xsd:simpleType>
+  <xsd:simpleType name="accent">
+    <xsd:restriction base="xsd:nonNegativeInteger" />
+  </xsd:simpleType>
+  <xsd:simpleType name="accentList">
+    <xsd:list itemType="accent" />
+  </xsd:simpleType>
+</xsd:schema>

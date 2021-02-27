@@ -1,0 +1,61 @@
+8
+
+dir
+101
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn/t/Teacher/xml
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn
+
+
+
+2007-11-23T15:36:21.447320Z
+14
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4ed9d269-f4a8-4731-ab05-c85b77e45862
+
+language.xsd
+file
+
+
+
+
+2007-12-08T08:46:45.328250Z
+30cbd5139c3e716a18257903255fca8c
+2007-11-23T15:36:21.447320Z
+14
+
+shared.xsd
+file
+
+
+
+
+2007-12-08T08:46:45.328250Z
+c35d13b9f5e95e2e90acd544c236d199
+2007-11-23T15:36:21.447320Z
+14
+
+test.xsd
+file
+
+
+
+
+2007-12-08T08:46:45.328250Z
+5882456760408f2ad419c96919be73ed
+2007-11-23T15:36:21.447320Z
+14
+

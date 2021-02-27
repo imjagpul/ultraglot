@@ -1,0 +1,55 @@
+8
+
+dir
+101
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn/t/Teacher/nbproject/private
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn
+
+
+
+2008-01-06T17:08:46.885866Z
+63
+imjagpul
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4ed9d269-f4a8-4731-ab05-c85b77e45862
+
+profiler
+dir
+
+private.properties
+file
+102
+
+
+
+2008-05-02T08:44:19.129625Z
+5ba1807ba8bf6da727fdefbfb1700134
+2008-06-01T10:26:52.455409Z
+102
+imjagpul
+
+private.xml
+file
+102
+
+
+
+2008-05-27T15:34:15.448250Z
+5bfbe11829c7eda80935f553375460d6
+2008-06-01T10:26:52.455409Z
+102
+imjagpul
+

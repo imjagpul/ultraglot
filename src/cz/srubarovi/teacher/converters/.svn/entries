@@ -1,0 +1,72 @@
+8
+
+dir
+101
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn/t/Teacher/src/cz/srubarovi/teacher/converters
+http://svn.srubarovi.cz/DISK2/WWW/srubarovi.cz/svn
+
+
+
+2007-11-23T16:11:43.958313Z
+35
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4ed9d269-f4a8-4731-ab05-c85b77e45862
+
+ConverterKatakana.java
+file
+
+
+
+
+2007-12-08T08:47:51.828250Z
+c25fbae9a7dd3b47218fb01e67371d6b
+2007-11-23T16:11:43.958313Z
+35
+
+Converter.java
+file
+
+
+
+
+2007-12-08T08:47:51.828250Z
+182179f68d6fad2c4915867c8d47a72a
+2007-11-23T16:11:43.958313Z
+35
+
+ConverterEsperanto.java
+file
+
+
+
+
+2007-12-08T08:47:51.828250Z
+c06df5f853bb1eb81b3b8b253fae1019
+2007-11-23T16:11:43.958313Z
+35
+
+AbstractConverter.java
+file
+
+
+
+
+2007-12-08T08:47:51.828250Z
+b8960da0115b71eb9b8ab685643b6a7d
+2007-11-23T16:11:43.958313Z
+35
+
